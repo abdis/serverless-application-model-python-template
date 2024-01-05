@@ -1,0 +1,38 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'cea-alicea-function-app
+
+  '
+Globals:
+  Function:
+    Timeout: 3
+Resources:
+  IDSTFetchTestFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: IDSTFetchTestFunction
+      Handler: hello_world/app.lambda_handler
+      Runtime: python3.11
+      Architectures:
+      - x86_64
+      Events:
+        HelloWorld:
+          Type: CloudWatchEvent
+          Properties:
+            Pattern:
+              source:
+              - aws.s3
+              detail-type:
+              - Object Created
+      LoggingConfig:
+        LogFormat: Text
+        LogGroup: IDSTLogs
+    Metadata:
+      SamResourceId: IDSTFetchTestFunction
+Outputs:
+  IDSTFetchTestFunction:
+    Description: Hello World Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - IDSTFetchTestFunction
+      - Arn

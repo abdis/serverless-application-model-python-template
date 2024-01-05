@@ -1,0 +1,4 @@
+requests
+six
+regex
+psycopg2-binary
